@@ -29,9 +29,10 @@ class _MyAppState extends State<MyApp> {
         '/courses': (context) => const Courses(),
         '/tasks':(context) => const Tasks(),
         '/calendar':(context) => const Calendar(),
-
       },
     );
   }
 }
+
+
 

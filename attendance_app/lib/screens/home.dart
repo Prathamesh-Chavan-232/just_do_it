@@ -15,8 +15,7 @@ class _HomeState extends State<Home> {
         children: [
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 20.0, top: 10, bottom: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -33,7 +32,7 @@ class _HomeState extends State<Home> {
                         ]),
                     IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.notifications_none))
+                        icon: const Icon(Icons.notifications_none, size: 35))
                   ]),
             ),
           ),
@@ -90,7 +89,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(fontSize: 16)),
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(12.0),
                     side: const BorderSide(color: Colors.grey, width: 2),
                   ),
                 ),
@@ -118,7 +117,6 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold)))
                 ],
               )),
-
           for (int i = 0; i < 2; ++i)
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
