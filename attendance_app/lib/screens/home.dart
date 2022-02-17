@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:attendance_app/utilities/constants.dart';
+
+Color changeColor(int i) {
+  return i == 1 ? Colors.deepPurple : Colors.green;
+}
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,7 +20,7 @@ class _HomeState extends State<Home> {
         children: [
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: hp, vertical: vp),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -37,7 +42,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: hp, vertical: vp),
             child: TextField(
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
@@ -54,8 +59,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: hp),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,16 +82,19 @@ class _HomeState extends State<Home> {
           for (int i = 0; i < 3; ++i)
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 4.0),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
               child: SizedBox(
-                height: 50,
+                height: 55,
                 child: ListTile(
+                  minVerticalPadding: 0,
                   onTap: () {},
-                  leading: const SizedBox(
-                    height: 30,
-                    child: Text('Lab Assignment 6',
-                        style: TextStyle(fontSize: 16)),
+                  leading: CircleAvatar(
+                    backgroundColor: changeColor(i),
+                    child: const Text("OS",style: TextStyle(color: Colors.white,fontSize: 12)),
+                    maxRadius: 15,
                   ),
+                  title: const Text('Lab Assignment 6',
+                      style: TextStyle(fontSize: 16)),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                     side: const BorderSide(color: Colors.grey, width: 2),
@@ -117,25 +124,41 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold)))
                 ],
               )),
-          for (int i = 0; i < 2; ++i)
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    for (int i = 0; i < 2; ++i)
-                      Container(
-                        width: 160,
-                        height: 90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey,
-                        ),
-                      )
-                  ],
-                ))
+              Container(
+                child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ), itemBuilder: _buildTask(context, task)),
+              )
         ],
       ),
     );
   }
+  Widget _buildTask(BuildContext context, Task task) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Details(task)));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            color: task.bgclr, borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(task.iconData, color: task.iconclr, size: 35),
+            const SizedBox(height: 30),
+            Text(task.title!,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
 }
