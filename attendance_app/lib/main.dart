@@ -1,10 +1,8 @@
-import 'package:attendance_app/screens/calendar.dart';
 import 'package:flutter/material.dart';
 import 'screens/login.dart';
 import 'screens/signup.dart';
 import 'screens/home.dart';
 import 'screens/courses.dart';
-import 'screens/tasks.dart';
 import 'screens/calendar.dart';
 void main() {
   runApp(const MyApp());
@@ -27,7 +25,6 @@ class _MyAppState extends State<MyApp> {
         '/signup': (context) => const Signup(),
         '/dashboard': (context) => const Home(),
         '/courses': (context) => const Courses(),
-        '/tasks':(context) => const Tasks(),
         '/calendar':(context) => const Calendar(),
       },
     );

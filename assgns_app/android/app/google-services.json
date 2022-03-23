@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594921074955",
+    "project_id": "ih-project-f5294",
+    "storage_bucket": "ih-project-f5294.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594921074955:android:22754325bd1a1a212fb20e",
+        "android_client_info": {
+          "package_name": "com.IHProj.assgns_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594921074955-4krug3f1e5hm3haot24gsdtm0t0us58c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFwkkgqhBbuJPmovDYIS8HO2D2mI_S2e8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594921074955-4krug3f1e5hm3haot24gsdtm0t0us58c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

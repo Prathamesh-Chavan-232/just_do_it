@@ -90,7 +90,8 @@ class _HomeState extends State<Home> {
                   onTap: () {},
                   leading: CircleAvatar(
                     backgroundColor: changeColor(i),
-                    child: const Text("OS",style: TextStyle(color: Colors.white,fontSize: 12)),
+                    child: const Text("OS",
+                        style: TextStyle(color: Colors.white, fontSize: 12)),
                     maxRadius: 15,
                   ),
                   title: const Text('Lab Assignment 6',
@@ -124,41 +125,15 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold)))
                 ],
               )),
-              Container(
-                child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ), itemBuilder: _buildTask(context, task)),
-              )
+          Container(
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (context, i) => Container()),
+          )
         ],
       ),
     );
   }
-  Widget _buildTask(BuildContext context, Task task) {
-    return GestureDetector(
-      onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Details(task)));
-      },
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            color: task.bgclr, borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(task.iconData, color: task.iconclr, size: 35),
-            const SizedBox(height: 30),
-            Text(task.title!,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-
-
-
 }
