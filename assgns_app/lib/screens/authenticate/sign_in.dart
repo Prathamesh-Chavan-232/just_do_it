@@ -27,6 +27,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text("Sign-in page"),
@@ -61,11 +62,6 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               const Spacer(),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                child: _signInAnonButton(),
-              ),
             ],
           ),
         ),
@@ -133,26 +129,6 @@ class _SignInState extends State<SignIn> {
       },
       child: const Text(
         "Sign-in",
-        style: TextStyle(color: Colors.black),
-      ),
-    );
-  }
-
-  ElevatedButton _signInAnonButton() {
-    return ElevatedButton(
-      style:
-          ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-      onPressed: () async {
-        dynamic result = await _auth.signInAnon();
-        if (result != null) {
-          print("$result, Signed-in anonymously");
-          print(result.userId);
-        } else {
-          print("Error signing in");
-        }
-      },
-      child: const Text(
-        "Sign-in anonymously",
         style: TextStyle(color: Colors.black),
       ),
     );

@@ -1,5 +1,5 @@
+import '/screens/home_screen/Dashboard.dart';
 import '/models/user.dart';
-import '/screens/home_screen/home_page.dart';
 import 'package:provider/provider.dart';
 import '/screens/authenticate/authenticate.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class _WrapperState extends State<Wrapper> {
     if (user == null) {
       return const Auth();
     } else {
-      return const HomePage();
+      return const Dashboard();
     }
   }
 }

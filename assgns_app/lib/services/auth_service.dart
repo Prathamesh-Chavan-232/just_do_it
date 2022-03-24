@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'database.dart';
 import '/models/user.dart';
 
 class AuthService {
@@ -20,11 +21,12 @@ class AuthService {
     return _auth.authStateChanges().map((User? user) => _createUser(user));
   }
 
-  Future signup(String email, String password) async {
+  Future signup(String email, String password,String name,String div,String rollNo) async {
     try {
       UserCredential res = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = res.user!;
+      await DatabaseService(uid: user.uid).updateUserData(name, div, rollNo);
       return _createUser(user);
     } catch (exp) {
       print(exp.toString());

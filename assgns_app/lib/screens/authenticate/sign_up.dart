@@ -14,12 +14,18 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   late String _email;
   late String _pass;
+  late String _name;
+  late String _div;
+  late String _roll_no;
   late bool _hidePassword;
 
   @override
   void initState() {
     _email = '';
     _pass = '';
+    _name = '';
+    _div = '';
+    _roll_no = '';
     _hidePassword = true;
     super.initState();
   }
@@ -27,6 +33,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text("Sign up page"),
@@ -40,19 +47,15 @@ class _SignUpState extends State<SignUp> {
             children: [
               const SizedBox(height: 20),
               const Spacer(),
-              TextFormField(
-                validator: (val) => val!.isEmpty ? "Enter a valid email" : null,
-                onChanged: (val) {
-                  setState(() => _email = val);
-                },
-                decoration: InputDecoration(
-                    hintText: "Email",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    )),
-              ),
+              _emailFormField(hintText: "Email"),
               const SizedBox(height: 20),
-              _buildFormField(hintText: "Password"),
+              _nameFormField(hintText: "Name"),
+              const SizedBox(height: 20),
+              _divFormField(hintText: "Div"),
+              const SizedBox(height: 20),
+              _rollFormField(hintText: "Roll no"),
+              const SizedBox(height: 20),
+              _passwordFormField(hintText: "Password"),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +69,9 @@ class _SignUpState extends State<SignUp> {
                     child: const Text(
                       "Sign-in",
                       style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold,fontSize: 18),
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
                     ),
                     style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(Colors.grey[100]),
@@ -89,7 +94,63 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  TextFormField _buildFormField({required String hintText}) {
+  TextFormField _emailFormField({required String hintText}) {
+    return TextFormField(
+      validator: (val) => val!.isEmpty ? "Enter a valid email" : null,
+      onChanged: (val) {
+        setState(() => _email = val);
+      },
+      decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          )),
+    );
+  }
+
+  TextFormField _nameFormField({required String hintText}) {
+    return TextFormField(
+      validator: (val) => val!.isEmpty ? "Enter a valid email" : null,
+      onChanged: (val) {
+        setState(() => _name = val);
+      },
+      decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          )),
+    );
+  }
+
+  TextFormField _divFormField({required String hintText}) {
+    return TextFormField(
+      validator: (val) => val!.isEmpty ? "Enter a valid email" : null,
+      onChanged: (val) {
+        setState(() => _div = val);
+      },
+      decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          )),
+    );
+  }
+
+  TextFormField _rollFormField({required String hintText}) {
+    return TextFormField(
+      validator: (val) => val!.isEmpty ? "Enter a valid email" : null,
+      onChanged: (val) {
+        setState(() => _roll_no = val);
+      },
+      decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          )),
+    );
+  }
+
+  TextFormField _passwordFormField({required String hintText}) {
     return TextFormField(
       validator: (val) =>
           val!.length < 6 ? "Password must have at least 6 characters" : null,
@@ -117,8 +178,13 @@ class _SignUpState extends State<SignUp> {
           ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
       onPressed: () async {
         if (_formKey.currentState!.validate()) {
-          dynamic result = await _auth.signup(_email, _pass);
+          dynamic result =
+              await _auth.signup(_email, _pass, _name, _div, _roll_no);
           print("email : $_email");
+          print("name : $_name");
+          print("roll_no : $_roll_no");
+          print("div : $_div");
+
           print("pass : $_pass");
           if (result != null) {
             print("$result, Successfully signed up with email & password");

@@ -1,55 +1,40 @@
 import 'package:flutter/material.dart';
-import '/constants/google_theme.dart';
+import '/constants/default_theme.dart';
 
 class Task {
-  IconData? iconData;
+  String? courseTitle;
   String? title;
-  Color? bgclr;
   Color? iconclr;
-  Color? btnclr;
-  bool? islast;
-  num? left;
-  num? done;
-  Task(
-      {this.iconData,
-        this.title,
-        this.bgclr,
-        this.iconclr,
-        this.btnclr,
-        this.left,
-        this.done,
-        this.islast = false});
+  Task({this.courseTitle, this.title, this.iconclr});
 
-  static List<Task> generateTasks() {
-    return [
+  static generateTasks() {
+    var tasksList = [
       Task(
-        iconData: Icons.person_rounded,
-        title: 'Personal',
-        bgclr: kYellowLight,
-        iconclr: kYellowDark,
-        btnclr: kYellow,
-        left: 3,
-        done: 1,
-      ),
+          courseTitle: 'Operating systems',
+          title: 'Os Assignment 1',
+          iconclr: kPink),
       Task(
-        iconData: Icons.cases_rounded,
-        title: 'Work',
-        bgclr: kRedLight,
-        iconclr: kRedDark,
-        btnclr: kRed,
-        left: 2,
-        done: 8,
-      ),
+          courseTitle: 'Operating systems',
+          title: 'Os Assignment 2',
+          iconclr: kPink),
       Task(
-        iconData: Icons.favorite_rounded,
-        title: 'Health',
-        bgclr: kBlueLight,
-        iconclr: kBlueDark,
-        btnclr: kBlue,
-        left: 1,
-        done: 2,
-      ),
-      Task(islast: true),
+          courseTitle: 'Operating systems',
+          title: 'Os Assignment 3',
+          iconclr: kPink),
+      Task(
+          courseTitle: 'Data structures',
+          title: 'DS Assignment 1',
+          iconclr: kButtonClr),
+      Task(
+          courseTitle: 'Data structures',
+          title: 'DS Assignment 2',
+          iconclr: kButtonClr),
+      Task(
+          courseTitle: 'Data structures',
+          title: 'DS Assignment 3',
+          iconclr: kButtonClr),
     ];
+    tasksList.shuffle();
+    return tasksList;
   }
 }

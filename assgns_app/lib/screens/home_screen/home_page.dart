@@ -1,103 +1,203 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '/constants/constants.dart';
-
-Color changeColor(int i) {
-  return i == 1 ? Colors.deepPurple : Colors.green;
-}
+import '/constants/default_theme.dart';
+import '/models/courses.dart';
+import '/models/tasks.dart';
+import 'package:provider/provider.dart';
+import '/services/database.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  late bool isComplete;
+  List<Course> courses = Course.generateCourses();
+  List<Task> tasks = Task.generateTasks();
+
+  @override
+  void initState() {
+    isComplete = false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBgClrLight,
-      appBar: AppBar(
-        backgroundColor: kBgClrLight,
-        elevation: 0,
-        leading: _menuButton(),
-        actions: [_searchButton(), _bellButton()],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+    // final students = Provider.of<QuerySnapshot?>(context);
+    // print(students!.docs);
+
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+            child: Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 20, left: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Hi, Prathamesh!",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, i) => _courseTile(),
-                    separatorBuilder: (context, i) => const SizedBox(width: 20),
-                    itemCount: 6),
-              ),
-              const SizedBox(height: 50),
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, i) => _taskTile(),
-                  separatorBuilder: (context, i) => const SizedBox(height: 20),
-                  itemCount: 8,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  "Hi, Prathamesh!",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 32,
+                    color: kText2,
+                  ),
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(top: 25, bottom: 15, left: 10),
+                child: Text(
+                  "Courses",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: kText,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, i) => _courseTile(courses[i]),
+                  itemCount: courses.length,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0, left: 10),
+                child: Text("Assignments",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: kText,
+                    )),
+              ),
+            ],
+          ),
+        )),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+              (context, i) => _taskTile(i, tasks[i], tasks),
+              childCount: tasks.length),
+        )
+      ],
+    );
+  }
+
+  Widget _taskTile(int i, Task task, List tasks) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Container(
+        width: double.infinity,
+        height: 80,
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                _taskAvatar(tasks, task.iconclr, i),
+                Text("   ${task.title}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: kText,
+                    )),
+              ],
+            )),
+      ),
+    );
+  }
+
+  Widget _taskAvatar(List tasks, Color? iconclr, int i) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          tasks.removeAt(i);
+          isComplete = true;
+        });
+      },
+      child: CircleAvatar(
+        radius: 15,
+        backgroundColor: Colors.white,
+        child: _hollow(iconclr),
+      ),
+    );
+  }
+
+  Container _hollow(Color? iconclr) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: iconclr!, width: 3)),
+    );
+  }
+
+  Widget _courseTile(Course course) {
+    return GestureDetector(
+      key: ValueKey(course),
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.only(right: 12.0, bottom: 20),
+        child: Container(
+          height: 80,
+          width: 250,
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(12)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "${course.left} Tasks left",
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: kText,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                course.title!,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: kText2,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: const [
+                  Text(
+                    "2 lectures",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: kText,
+                    ),
+                  ),
+                  SizedBox(width: 40),
+                  Text(
+                    "2 labs",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: kText,
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _courseTile() {
-    return Container(
-      width: 250,
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-    );
-  }
-
-  Widget _taskTile() {
-    return Container(
-      child: const Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          "     Assignment",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-      height: 60,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-      ),
-    );
-  }
-
-  IconButton _searchButton() => IconButton(
-    onPressed: () {},
-    icon: const Icon(Icons.search, color: Colors.black26),
-  );
-
-  IconButton _bellButton() => IconButton(
-    onPressed: () {},
-    icon: const Icon(Icons.notifications, color: Colors.black26),
-  );
-
-  IconButton _menuButton() {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(Icons.dehaze, color: Colors.black26),
     );
   }
 }
