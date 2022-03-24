@@ -8,33 +8,35 @@ class Task {
   Task({this.courseTitle, this.title, this.iconclr});
 
   static generateTasks() {
-    var tasksList = [
-      Task(
-          courseTitle: 'Operating systems',
-          title: 'Os Assignment 1',
-          iconclr: kPink),
-      Task(
-          courseTitle: 'Operating systems',
-          title: 'Os Assignment 2',
-          iconclr: kPink),
-      Task(
-          courseTitle: 'Operating systems',
-          title: 'Os Assignment 3',
-          iconclr: kPink),
-      Task(
-          courseTitle: 'Data structures',
-          title: 'DS Assignment 1',
-          iconclr: kButtonClr),
-      Task(
-          courseTitle: 'Data structures',
-          title: 'DS Assignment 2',
-          iconclr: kButtonClr),
-      Task(
-          courseTitle: 'Data structures',
-          title: 'DS Assignment 3',
-          iconclr: kButtonClr),
-    ];
+
     tasksList.shuffle();
     return tasksList;
   }
 }
+var tasksList = [
+  Task(
+      courseTitle: 'Operating systems',
+      title: 'Os Assignment 1',
+      iconclr: kPink),
+  Task(
+      courseTitle: 'Operating systems',
+      title: 'Os Assignment 2',
+      iconclr: kPink),
+  Task(
+      courseTitle: 'Operating systems',
+      title: 'Os Assignment 3',
+      iconclr: kPink),
+  Task(
+      courseTitle: 'Data structures',
+      title: 'DS Assignment 1',
+      iconclr: kButtonClr),
+  Task(
+      courseTitle: 'Data structures',
+      title: 'DS Assignment 2',
+      iconclr: kButtonClr),
+  Task(
+      courseTitle: 'Data structures',
+      title: 'DS Assignment 3',
+      iconclr: kButtonClr),
+];
+

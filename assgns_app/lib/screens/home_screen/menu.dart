@@ -1,3 +1,4 @@
+import '/screens/attendance/attendance.dart';
 import '/screens/calendar/calendar.dart';
 import 'package:flutter/material.dart';
 import '/constants/default_theme.dart';
@@ -16,9 +17,15 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     var menuList = [
-      const Text(
-        "Attendance",
-        style: TextStyle(color: kText, fontSize: 18),
+      InkWell(
+        onTap: () {
+          Navigator.push((context),
+              MaterialPageRoute(builder: (context) => const Attendance()));
+        },
+        child: const Text(
+          "Attendance",
+          style: TextStyle(color: kText, fontSize: 18),
+        ),
       ),
       const Text(
         "Courses",
