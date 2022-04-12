@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "806642574049",
+    "project_id": "divyangjaan",
+    "storage_bucket": "divyangjaan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806642574049:android:f7ab2dde2d310730640da0",
+        "android_client_info": {
+          "package_name": "com.example.divyangjaan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806642574049-okkgtll8eqaokcq87tagmkbbs2mes4t8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoFBwA5dLPSkMH73s8pIzb99eLqUtFWxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806642574049-okkgtll8eqaokcq87tagmkbbs2mes4t8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
