@@ -15,6 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late bool isComplete;
   List<Course> courses = Course.generateCourses();
+  List<Task> tasks = Task.generateTasks();
+
   @override
   void initState() {
     isComplete = false;
@@ -78,8 +80,8 @@ class _HomePageState extends State<HomePage> {
         )),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-              (context, i) => _taskTile(i, tasksList[i], tasksList),
-              childCount: tasksList.length),
+              (context, i) => _taskTile(i, tasks[i], tasks),
+              childCount: tasks.length),
         )
       ],
     );
@@ -119,17 +121,22 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         setState(() {
           tasks.removeAt(i);
+          isComplete = true;
         });
       },
       child: CircleAvatar(
         radius: 15,
         backgroundColor: Colors.white,
-        child:Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(color: iconclr!, width: 3)),
-        ),
+        child: _hollow(iconclr),
       ),
+    );
+  }
+
+  Container _hollow(Color? iconclr) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: iconclr!, width: 3)),
     );
   }
 
@@ -156,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                   color: kText,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 course.title!,
                 style: const TextStyle(
@@ -165,38 +172,24 @@ class _HomePageState extends State<HomePage> {
                   color: kText2,
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
               Row(
-                children:  [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Text(
-                      "2 lectures",
-                      style:  TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: kText,
-                      ),
+                children: const [
+                  Text(
+                    "2 lectures",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: kText,
                     ),
                   ),
-                  const SizedBox(width: 40),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Text(
-                      "2  labs",
-                      style:  TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: kText,
-                      ),
+                  SizedBox(width: 40),
+                  Text(
+                    "2 labs",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: kText,
                     ),
                   ),
                 ],
