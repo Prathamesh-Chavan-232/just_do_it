@@ -1,4 +1,5 @@
-import '/screens/home_screen/Dashboard.dart';
+import 'package:assgns_app/screens/home_screen/dashboard.dart';
+
 import '/models/user.dart';
 import 'package:provider/provider.dart';
 import '/screens/authenticate/authenticate.dart';
